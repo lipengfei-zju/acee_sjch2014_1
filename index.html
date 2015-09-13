@@ -694,7 +694,7 @@
 <body>
   <div class="usual">
     <div class="topnav">
-      你还有<span id="total">70</span>个星星可以选。选完后，填写以下信息后提交：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      你还有<span id="total">65</span>个星星可以选。选完后，填写以下信息后提交：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			
             <span>姓名</span>&nbsp;<input type='text' id='inputName'>&nbsp;&nbsp;<span>学号</span>&nbsp;<input type='text' id='inputId'><a href="#" id="submit">提交</a>
     </div>
@@ -870,7 +870,6 @@
 {'title':'数据结构与算法分析', 'publisher':'机械工业出版社', 'category':'专业课', 'author':'Mark Allen Weiss', 'remark':'0507033'},
 {'title':'食品营养学', 'publisher':'化学工业出版社', 'category':'专业课', 'author':'李铎', 'remark':'0207036'},
 {'title':'生物医学测量与仪器', 'publisher':'复旦大学出版社', 'category':'专业课', 'author':'王保华', 'remark':'0207095'},
-{'title':'深入理解计算机系统(英文版)', 'publisher':'9787111326311', 'category':'专业课', 'author':'张德明著', 'remark':'0907020'},
 {'title':'深入理解计算机系统', 'publisher':'机械工业出版社', 'category':'专业课', 'author':'Randal E.Bryant', 'remark':'0107072'},
 {'title':'摄像技术与DV制作', 'publisher':'浙江大学出版社', 'category':'专业课', 'author':'程勇', 'remark':'0107151'},
 {'title':'软件工程', 'publisher':'浙江大学出版社', 'category':'专业课', 'author':'王慧芳', 'remark':'0207014'},
@@ -1070,7 +1069,6 @@
 {'title':'LabVIEW大学实用教程', 'publisher':'电子工业出版社', 'category':'专业课', 'author':'Jeffrey Travis', 'remark':'0107036'},
 {'title':'Java语言程序设计：进阶篇（原书第8版）', 'publisher':'9787111342366', 'category':'专业课', 'author':'李亚宾  编', 'remark':'0907034'},
 {'title':'Java编程思想(英文版第4版)/经典原版书库', 'publisher':'9787111212508', 'category':'专业课', 'author':'美埃克尔', 'remark':'0907006'},
-{'title':'Java编程思想(英文版第4版)/经典原版书库', 'publisher':'9787111212508', 'category':'专业课', 'author':'美埃克尔', 'remark':'0407169'},
 {'title':'INTRODUCTION TO LINEAR ALGEVRA第四版', 'publisher':'', 'category':'专业课', 'author':'FERERICO MILANO', 'remark':'0907040'},
 {'title':'Introduction to Engineering Design', 'publisher':'打印资料', 'category':'专业课', 'author':'Arvid R.Eide Roland d.Jenison', 'remark':'0607017'},
 {'title':'INTRODUCTION TO ENGINEERING DESIGN', 'publisher':'', 'category':'专业课', 'author':'姚俊', 'remark':'0907045'},
@@ -1272,7 +1270,6 @@
 {'title':'概率论、数理统计与随机过程', 'publisher':'浙江大学出版社', 'category':'数学', 'author':'张帼奋', 'remark':'0204139'},
 {'title':'概率论', 'publisher':'浙江大学出版社', 'category':'数学', 'author':'林正炎 苏中根', 'remark':'0604003'},
 {'title':'复变函数与拉普拉斯变换 习题指导', 'publisher':'浙江大学出版社', 'category':'数学', 'author':'金忆丹', 'remark':'0204148'},
-{'title':'复变函数与拉普拉斯变换', 'publisher':'浙江大学出版社', 'category':'数学', 'author':'金忆丹', 'remark':'0204147'},
 {'title':'樊博头考研系列·2011全国硕士研究生入学统一考试：数学辅导讲义（理工类）', 'publisher':'9787308066952', 'category':'数学', 'author':'', 'remark':'0404109'},
 {'title':'樊博头考研系列·2011全国硕士研究生入学统一考试：数学辅导讲义（理工类）', 'publisher':'9787308066952', 'category':'数学', 'author':'', 'remark':'0404112'},
 {'title':'抽样技术（第三版）', 'publisher':'中国人民大学出版社', 'category':'数学', 'author':'金勇进 杜子芳 蒋妍', 'remark':'0604009'},
@@ -1569,11 +1566,11 @@
       $("select").each(function () {
         score += parseInt(this.value, 10);
       });
-      if (score > 70) {
-        layer.tips("最多只能分配70个星星", this, { guide: 1, time: 2 });
+      if (score > 65) {
+        layer.tips("最多只能分配65个星星", this, { guide: 1, time: 2 });
         this.value = 0;
       }
-      $("#total").text(70 - score);
+      $("#total").text(65 - score);
     });
 
     $("#submit").click(function () {
@@ -1596,7 +1593,6 @@
             "author": $(this).parents('tr').find('td input').val(),
             "remark": $(this).parents('tr').find('td').eq(3).text(),
             "score": score,
-            "name": $('#inputName').val(),
             "schoolId": $('#inputId').val()
           };
           data.push(record);
@@ -1612,10 +1608,59 @@
         //border: [0],
         //page: { dom: '.popup' }
       //});
-      alert("请将接下来要下载的文件发送到acee_sjch@163.com，请不要改动文件内容！！");
-      var blob = new Blob([result], { type: "text/plain;charset=utf-8" });
-      saveAs(blob, $("#inputId").val()+".txt");
+     var iddd = "acee/"+$("#inputId").val()+".txt";
+
+      var count_serve=0;      
+
+      $.ajax({  
+
+        type : "post",  
+
+        url : "http://acee.net16.net/book2txt.php",  
+
+        data : {books:result, iddd:iddd}  ,
+
+        async : false,  
+
+        success : function(data){ 
+
+          count_serve+=1; 
+
+        }  
+
+      }); 
+
+      $.ajax({  
+
+        type : "post",  
+
+        url : "http://lorrin.cn/book2txt.php",  
+
+        data : {books:result, iddd:iddd}  ,
+
+        async : false,  
+
+        success : function(data){ 
+
+          count_serve+=1; 
+
+        }  
+
+      }); 
+
+      if (count_serve==0) {
+
+        alert("抱歉，服务器好像出了一点问题~请稍后再试一下吧");
+
+      }
+      else{
+
+        alert("恭喜！你选择的书本已经成功上传到"+count_serve+"个服务器。多次提交会覆盖原先的选择。"); 
+
+      }
+
     });
+
 
     $('#copyToClip').click(function () {
       var text = $("#result").text();
